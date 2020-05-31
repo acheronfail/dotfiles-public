@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+"""
+Logs requests.
+Usage: ./server.py [<port>]
+"""
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+
+class Server(BaseHTTPRequestHandler):
+    def __getattribute__(self, name):
+        if name.startswith('do_'):
+            return lambda: self._respond(name.split('_')[1])
+        return super(Server, self).__getattribute__(name)
+
+    def _respond(self, method):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+
+        body = {
+            'path': self.path,
+            'method': method,
+            'headers': {
+                **self.headers
+            },
+            'client_address': '{}:{}'.format(self.client_address[0], self.client_address[1]),
+            'date_time_string': self.date_time_string(),
+        }
+
+        content_length = None
+        if self.headers['Content-Length'] is not None:
+            content_length = int(self.headers['Content-Length'])
+            body['data'] = self.rfile.read(content_length).decode("utf-8")
+
+        json_body = json.dumps(body, indent=2, sort_keys=True)
+
+        # Write and print.
+        self.wfile.write(json_body.encode('utf8'))
+        print(json_body)
+
+    def log_message(*args, **kwargs):
+        pass
+
+def run(server_class=HTTPServer, handler_class=Server, port=8080):
+    print('Listening on port: {}'.format(port))
+    httpd = server_class(('0.0.0.0', port), handler_class)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print('')
+    httpd.server_close()
+
+if __name__ == '__main__':
+    from sys import argv
+    if len(argv) == 2:
+        run(port=int(argv[1]))
+    else:
+        run()

@@ -1,0 +1,64 @@
+# Choose the default editor.
+export EDITOR="nvim";
+
+# Local paths.
+if is_qnap; then
+  export SRC_DIR="$DATA_HOME/src";
+  export NVM_DIR="$DATA_HOME/.nvm";
+else
+  export SRC_DIR="$HOME/src";
+  export GOPATH="$SRC_DIR/Go";
+fi
+
+# Create some paths if they don't already exist.
+dirs=("$SRC_DIR" "$GOPATH")
+for dir in $dirs; do
+  if [ ! -d "$dir" ]; then
+    mkdir -p "$dir";
+  fi
+done;
+unset dir;
+unset dirs;
+
+# Enable persistent REPL history for `node`.
+NODE_REPL_HISTORY_FILE=~/.node_history;
+# Allow 32³ entries; the default is 1000.
+NODE_REPL_HISTORY_SIZE='32768';
+
+export HISTFILE="$HOME/.zhistory"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_VERIFY
+
+# Prefer AU English and use UTF-8.
+export LANG='en_AU.UTF-8';
+export LC_ALL='en_AU.UTF-8';
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
+# Don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';
+if is_qnap; then
+  export PAGER='less'
+fi
+
+# Add GPG TTY.
+export GPG_TTY=$(tty)
+
+# Configure fzf/skim to use fd.
+export SKIM_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git" .';
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude ".git" .';
+export FZF_CTRL_T_COMMAND='fd --hidden --follow --exclude ".git" .';
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude ".git" .';
+if is_android; then
+  export FZF_BASE="$PREFIX/share/fzf";
+elif is_qnap; then
+  export FZF_BASE="$DATA_HOME/.fzf";
+fi
+

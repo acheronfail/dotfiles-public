@@ -1,0 +1,33 @@
+export PATH="/usr/sbin:$PATH";
+
+if is_qnap; then
+  export PATH="/opt/bin:$PATH";
+fi
+
+# Add extra local binaries to path.
+export PATH="$PATH:$DOTFILES_HOME/.bin";
+if is_macos; then
+  export PATH="$PATH:$DOTFILES_HOME/.bin/osx";
+fi
+if is_qnap; then
+  export PATH="$PATH:$DOTFILES_HOME/.bin/qnap";
+  export PATH="$PATH:$DATA_HOME/.fzf/bin";
+fi
+if is_linux; then
+  export PATH="$PATH:$DOTFILES_HOME/.bin/linux";
+fi
+
+# Add cargo's binaries to path.
+export PATH="$PATH:$DOTFILES_HOME/.cargo/bin";
+
+# Add Go's binaries to path.
+export PATH="$PATH:$GOPATH/bin";
+
+# Add games to path.
+export PATH="$PATH:/usr/games";
+
+# Add user installed python modules to path.
+export PATH="$PATH:$DOTFILES_HOME/.local/bin";
+
+# Custom installation of `yarn`.
+export PATH="$DOTFILES_HOME/.yarn/bin:$DOTFILES_HOME/.config/yarn/global/node_modules/.bin:$PATH";

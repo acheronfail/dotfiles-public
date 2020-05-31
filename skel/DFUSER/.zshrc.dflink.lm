@@ -1,0 +1,57 @@
+# This sourced in interactive shells. It should contain commands to set up
+# aliases, functions, options, key bindings, etc.
+# http://zsh.sourceforge.net/Intro/intro_3.html
+
+# Load some shell dotfiles:
+# * ~/.extra can be used for other settings.
+for file in "${DOTFILES_HOME}"/.{aliases,functions}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
+source "$DOTFILES_DIR/utils/sniff.sh";
+
+# Disable insecure compfix directories on QNAP.
+if is_qnap; then
+  [[ $UID = 0 ]] && export ZSH_DISABLE_COMPFIX=true;
+fi
+
+# Install/load zgen
+if [ ! -f ~/.zgen/zgen.zsh ]; then
+  echo "installing zgen..."
+  git clone https://github.com/tarjoilija/zgen.git ~/.zgen
+fi
+source ~/.zgen/zgen.zsh
+
+# Load plugins if they aren't already saved by zgen.
+if ! zgen saved; then
+
+  # Load oh-my-zsh plugins.
+  zgen oh-my-zsh
+  # FIXME: this plugin doesn't support termux
+  # FIXME: source it manually (don't know why this doesn't work)
+  ! is_android && zgen oh-my-zsh plugins/fzf
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/tmux
+  zgen oh-my-zsh plugins/z
+  [[ ! $UID = 0 ]] && zgen oh-my-zsh plugins/sudo
+
+  # Load other plugins.
+  zgen load unixorn/warhol.plugin.zsh
+  zgen load zsh-users/zsh-syntax-highlighting
+
+  # Setup nvm.
+  [[ ! $UID = 0 ]] && ! is_android && zgen load lukechilds/zsh-nvm
+
+  # Generate init script.
+  zgen save
+fi
+
+unalias l;
+alias l='exa -haal'
+alias t='exa -hal --tree'
+alias ra='ranger'
+
+# Set starship prompt.
+eval "$(starship init zsh)"
+

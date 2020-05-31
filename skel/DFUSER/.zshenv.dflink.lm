@@ -1,0 +1,22 @@
+# This file is loaded regardless of the shell and should load environment
+# settings (such as path and exports).
+# http://zsh.sourceforge.net/Intro/intro_3.html
+# Since this is loaded first, add our helpers here.
+
+export DOTFILES_DIR=${$(readlink ${(%):-%N})%%/skel/*};
+source "$DOTFILES_DIR/utils/sniff.sh";
+
+# Extract the home directory of the user that installed dotfiles.
+if is_android || is_qnap; then
+  export DOTFILES_HOME="$HOME";
+else
+  export DOTFILES_HOME="/$(echo $DOTFILES_DIR | cut -d'/' -f2-3)";
+fi
+
+# Load some shell dotfiles:
+# * ~/.path can be used to extend `$PATH`.
+for file in "${DOTFILES_HOME}"/.{exports,extra,path}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+

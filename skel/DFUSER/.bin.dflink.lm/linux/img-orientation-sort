@@ -1,0 +1,22 @@
+#!/bin/bash
+# Based on: https://unix.stackexchange.com/questions/294341/shell-script-to-separate-and-move-landscape-and-portrait-images
+
+# make directories
+mkdir portraits
+mkdir landscapes
+
+# Check that all images have correct rotation
+jhead -autorot *.jp*g
+jhead -autorot *.JP*G
+
+# move files
+for f in $(find -iname '*.jp*g')
+do
+  r=$(identify -format '%[fx:(h>w)]' "$f")
+  if [[ r -eq 1 ]] 
+  then
+      mv "$f" portraits
+  else
+      mv "$f" landscapes
+  fi
+done
