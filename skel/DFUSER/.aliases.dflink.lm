@@ -1,3 +1,6 @@
+alias t='exa -hal --tree'
+alias ra='ranger'
+
 if is_linux; then
   # An easier `xdg-open`.
   alias open="xdg-open"

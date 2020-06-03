@@ -49,8 +49,6 @@ fi
 
 unalias l;
 alias l='exa -haal'
-alias t='exa -hal --tree'
-alias ra='ranger'
 
 # Set starship prompt.
 eval "$(starship init zsh)"
