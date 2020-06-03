@@ -133,10 +133,12 @@ sudo mv exa-linux-x86_64 /usr/local/bin/exa
 rm exa.zip
 
 # Install Insomnia
-echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" | sudo tee -a /etc/apt/sources.list.d/insomnia.list
-wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install -y insomnia
+if [ ! -f /etc/apt/sources.list.d/insomnia.list ]; then
+  echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" | sudo tee -a /etc/apt/sources.list.d/insomnia.list
+  wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc | sudo apt-key add -
+  sudo apt-get update
+  sudo apt-get install -y insomnia
+fi
 
 # Clean up.
 sudo apt-get autoremove -y
@@ -147,6 +149,5 @@ bash -c "chsh -s $(which zsh)"
 echo "Done! Log in and out for the default shell to apply."
 
 # TODO install node
-# TODO install tmux plugins
 # TODO install nvim plugins
 
