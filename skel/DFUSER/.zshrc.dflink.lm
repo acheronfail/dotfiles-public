@@ -41,7 +41,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-syntax-highlighting
 
   # Setup nvm.
-  [[ ! $UID = 0 ]] && ! is_android && zgen load lukechilds/zsh-nvm
+  ! is_android && zgen load lukechilds/zsh-nvm
 
   # Generate init script.
   zgen save
