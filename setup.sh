@@ -126,13 +126,17 @@ sudo apt-get install -y \
   zsh
 
 # Install starship shell
-curl -fsSL https://starship.rs/install.sh | bash -s -- -y
+if [ ! -f /usr/local/bin/starship ]; then
+  curl -fsSL https://starship.rs/install.sh | bash -s -- -y
+fi
 
 # Annoyingly there's no easy way to install exa.
-curl -sL https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip > exa.zip
-unzip exa.zip
-sudo mv exa-linux-x86_64 /usr/local/bin/exa
-rm exa.zip
+if [ ! -f /usr/local/bin/exa ]; then
+  curl -sL https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip > exa.zip
+  unzip exa.zip
+  sudo mv exa-linux-x86_64 /usr/local/bin/exa
+  rm exa.zip
+fi
 
 # Install Insomnia
 if [ ! -f /etc/apt/sources.list.d/insomnia.list ]; then
@@ -149,7 +153,4 @@ main
 
 bash -c "chsh -s $(which zsh)"
 echo "Done! Log in and out for the default shell to apply."
-
-# TODO install node
-# TODO install nvim plugins
 
