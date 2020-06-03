@@ -98,6 +98,8 @@ function main() {
       chmod +x "$dest" && log_suc "EXEC: $dest"
     fi
   done
+
+  git clean -fdx
 }
 
 # Install base packages.
