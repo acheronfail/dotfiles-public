@@ -1,5 +1,7 @@
 # dotfiles
 
+Quick setup scripts for Kali.
+
 ## Quick Download
 
 ```bash
