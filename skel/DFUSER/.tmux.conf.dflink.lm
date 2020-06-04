@@ -69,7 +69,7 @@ set -g status-position top
 set -g status-justify left
 set -g status-style fg=colour11,bg=colour8,dim
 set -g status-left ''
-set -g status-right '#[fg=colour7,bg=colour0] %d/%m #[fg=colour7,bg=colour0] %H:%M #{battery_color_bg} #{battery_percentage} '
+set -g status-right '#[fg=colour7,bg=colour0] %d/%m #[fg=colour7,bg=colour0] %H:%M #{battery_color_bg} #{battery_percentage} #{prefix_highlight}'
 set -g status-right-length 50
 set -g status-left-length 20
 
