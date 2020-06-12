@@ -108,6 +108,7 @@ sudo apt-get install -y \
   build-essential \
   copyq \
   coreutils \
+  default-jdk \
   fd-find \
   fzf \
   git \
@@ -138,6 +139,13 @@ if [ ! -f /usr/local/bin/exa ]; then
   unzip exa.zip
   sudo mv exa-linux-x86_64 /usr/local/bin/exa
   rm exa.zip
+fi
+
+# Install Ghidra.
+if [ ! -d "/opt/ghidra_9.1.2_PUBLIC" ]; then
+  wget 'https://ghidra-sre.org/ghidra_9.1.2_PUBLIC_20200212.zip'
+  unzip 'ghidra_9.1.2_PUBLIC_20200212.zip'
+  sudo mv 'ghidra_9.1.2_PUBLIC' /opt/
 fi
 
 # Install Insomnia
