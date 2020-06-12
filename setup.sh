@@ -152,11 +152,11 @@ if ! grep -q 'gef' ~/.gdbinit 3>/dev/null; then
   wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
   # Used by commands.
   pip3 install keystone-engine unicorn capstone ropper
-  curl -sL https://raw.githubusercontent.com/hugsy/stuff/master/update-trinity.sh | sh
+  curl -sL https://raw.githubusercontent.com/hugsy/stuff/master/update-trinity.sh | bash
 fi
 
 # Install pwntools.
-if ! python3 -c 'import pwntools'; then
+if ! python3 -c 'import pwn'; then
   python3 -m pip install --upgrade pip
   python3 -m pip install --upgrade pwntools
 fi
