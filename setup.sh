@@ -106,21 +106,27 @@ function main() {
 sudo apt-get update
 sudo apt-get install -y \
   build-essential \
+  cmake \
   copyq \
   coreutils \
   default-jdk \
   fd-find \
   fzf \
+  gdb \
+  gdbserver \
   git \
   gobuster \
   irssi \
   jq \
+  libffi-dev \
+  libssl-dev \
   ncdu \
   nmap \
   neovim \
   powercat \
   python-pip \
   python3-pip \
+  python3-dev \
   ranger \
   ripgrep \
   tmux \
@@ -139,6 +145,20 @@ if [ ! -f /usr/local/bin/exa ]; then
   unzip exa.zip
   sudo mv exa-linux-x86_64 /usr/local/bin/exa
   rm exa.zip
+fi
+
+# Install gef.
+if ! grep -q 'gef' ~/.gdbinit 3>/dev/null; then
+  wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
+  # Used by commands.
+  pip3 install keystone-engine unicorn capstone ropper
+  curl -sL https://raw.githubusercontent.com/hugsy/stuff/master/update-trinity.sh | sh
+fi
+
+# Install pwntools.
+if ! python3 -c 'import pwntools'; then
+  python3 -m pip install --upgrade pip
+  python3 -m pip install --upgrade pwntools
 fi
 
 # Install Ghidra.
