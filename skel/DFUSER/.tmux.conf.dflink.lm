@@ -14,11 +14,14 @@ set -ga terminal-overrides ",xterm-256color:Tc"
 # Use prefix-r to reload tmux config.
 bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
 
-# Switch panes using Alt-DIR without prefix
+# Switch panes using alt-DIR without prefix.
 bind -n M-h select-pane -L
 bind -n M-l select-pane -R
 bind -n M-j select-pane -U
 bind -n M-k select-pane -D
+
+# Zoom panes with just alt Z.
+bind -n M-z resize-pane -Z
 
 # Create panes with alt without prefix.
 # NOTE: this is slightly different to the defaults from tmux-pane-control.
