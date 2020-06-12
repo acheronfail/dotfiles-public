@@ -111,11 +111,13 @@ sudo apt-get install -y \
   fd-find \
   fzf \
   git \
+  gobuster \
   irssi \
   jq \
   ncdu \
   nmap \
   neovim \
+  powercat \
   python-pip \
   python3-pip \
   ranger \
