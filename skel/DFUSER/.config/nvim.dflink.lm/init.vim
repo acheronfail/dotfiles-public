@@ -52,11 +52,18 @@ source ~/.config/nvim/coc.vim
 " VIM CONFIGURATION
 "
 
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+set tabstop=2
+set incsearch
+set smartcase
 set cursorline
 set number
 set relativenumber
 set updatetime=500
 set signcolumn=yes
+set wildignore=*/log/**,*/node_modules/**,*/target/**,*/tmp/**,*.rbc
 " Show whitespace
 set list
 set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,eol:┐,precedes:«,extends:» " ¶
@@ -69,7 +76,7 @@ colorscheme nord
 " Make the Sign Column background transparent.
 highlight clear SignColumn
 " Font (for GUI apps)
-set guifont=Ubuntu\ Mono:h36
+set guifont=Ubuntu\ Mono:h22
 
 "
 " SWAPFILES
