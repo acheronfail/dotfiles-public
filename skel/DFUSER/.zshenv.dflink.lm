@@ -3,6 +3,13 @@
 # http://zsh.sourceforge.net/Intro/intro_3.html
 # Since this is loaded first, add our helpers here.
 
+# Only setup the dotfiles variables if we're in a login or interactive shell.
+# This is mainly so gdbserver doesn't hang when it sees an extra fork.
+# See: https://sourceware.org/bugzilla/show_bug.cgi?id=26116
+if [[ ! -o login ]] || [[ ! -o interactive ]]; then
+  return
+f
+
 export DOTFILES_DIR=${$(readlink ${(%):-%N})%%/skel/*};
 source "$DOTFILES_DIR/utils/sniff.sh";
 
