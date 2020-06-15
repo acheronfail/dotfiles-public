@@ -1,5 +1,5 @@
 alias t='exa -hal --tree'
-alias ra='ranger'
+alias ra='. $(which ranger)'
 
 if is_linux; then
   # An easier `xdg-open`.
