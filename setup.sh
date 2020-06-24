@@ -129,6 +129,7 @@ sudo apt-get install -y \
   python3-dev \
   ranger \
   ripgrep \
+  steghide \
   tmux \
   wget \
   xclip \
